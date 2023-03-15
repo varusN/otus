@@ -20,6 +20,15 @@ EVEN = "even"
 PRIME = "prime"
 
 
+def is_prime(num):
+    if num < 2:
+        return False
+    for i in range(2, num):
+        if num % i == 0:
+            return False
+    return True
+
+
 def filter_numbers(data, filter_type):
     """
     функция, которая на вход принимает список из целых чисел,
@@ -32,7 +41,7 @@ def filter_numbers(data, filter_type):
     <<< [2, 4]
     """
     def func_odd(num):
-        if(num%2 != 0):
+        if(num % 2 != 0):
             return True
         else:
             return False
@@ -45,12 +54,6 @@ def filter_numbers(data, filter_type):
             return False
 
 
-    def is_prime(num):
-        for i in range(2,num):
-            if num % i == 0:
-                return False
-        return True
-
     new_data=[]
     if filter_type == ODD:
         new_data = filter(func_odd,data)
@@ -58,4 +61,6 @@ def filter_numbers(data, filter_type):
         new_data = filter(func_even, data)
     if filter_type == PRIME:
         new_data = filter(is_prime, data)
-    print(f'<<< {list(new_data)}')
+    return list(new_data)
+
+#filter_numbers([4343, 3005, 6969, 2227, 3183, 785, 411, 2673, 7435, 3519, 9741, 7735, 8903, 8681, 9747, 5427, 2181, 4285, 3927, 3081, 4115, 1663, 4465, 841, 2499, 8741, 6395],ODD)
