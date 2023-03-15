@@ -11,8 +11,8 @@ def power_numbers(*data):
     >>> power_numbers(1, 2, 5, 7)
     <<< [1, 4, 25, 49]
     """
-    print(f'<<< {[ el**2 for el in data ]}')
-
+    #print(f'<<< {[ el**2 for el in data ]}')
+    return [ el**2 for el in data ]
 
 # filter types
 ODD = "odd"
