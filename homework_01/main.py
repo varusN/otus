@@ -11,7 +11,6 @@ def power_numbers(*data):
     >>> power_numbers(1, 2, 5, 7)
     <<< [1, 4, 25, 49]
     """
-    #print(f'<<< {[ el**2 for el in data ]}')
     return [ el**2 for el in data ]
 
 # filter types
@@ -63,4 +62,3 @@ def filter_numbers(data, filter_type):
         new_data = filter(is_prime, data)
     return list(new_data)
 
-#filter_numbers([4343, 3005, 6969, 2227, 3183, 785, 411, 2673, 7435, 3519, 9741, 7735, 8903, 8681, 9747, 5427, 2181, 4285, 3927, 3081, 4115, 1663, 4465, 841, 2499, 8741, 6395],ODD)
