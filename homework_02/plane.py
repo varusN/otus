@@ -15,7 +15,7 @@ class Plane(Vehicle):
         cargo += self.cargo
         try:
             cargo <= max_cargo
-        else exceptions.CargoOverload:
+        except exceptions.CargoOverload:
             print()
 
     def remove_all_cargo(self):
