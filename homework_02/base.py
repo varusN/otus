@@ -14,17 +14,17 @@ class Vehicle(ABC):
         self.fuel_consumption = fuel_consumption
 
 
-    def start(self):
+    def start(self,started):
         try:
             started == 1
         except exceptions.LowFuelError:
             print()
 
-
-    def move(self):
+    def move(self,dist):
         try:
-            move >= fuel/fuel_consumption and fuel -= move*fuel_consumption
+            dist <= fuel/fuel_consumption
         except exceptions.NotEnoughFuel:
-
-        return fuel -= move*fuel_consumption
+            print()
+        fuel -= dist * fuel_consumption
+        return fuel
 
