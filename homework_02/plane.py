@@ -1,6 +1,8 @@
 """
 создайте класс `Plane`, наследник `Vehicle`
 """
+from homework_02.exceptions import CargoOverload
+from homework_02.base import Vehicle
 
 class Plane(Vehicle):
     cargo = None
@@ -12,13 +14,15 @@ class Plane(Vehicle):
 
 
     def load_cargo(self):
+        cargo = self.cargo
+        max_cargo = self.cargo
         cargo += self.cargo
         try:
             cargo <= max_cargo
-        except exceptions.CargoOverload:
+        except CargoOverload:
             print()
 
     def remove_all_cargo(self):
         old_cargo = self.cargo
-        self.cargo = null
+        self.cargo = None
         return old_cargo
