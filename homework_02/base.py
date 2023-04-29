@@ -2,10 +2,10 @@ from abc import ABC
 
 
 class Vehicle(ABC):
-    weight = 1000,
-    started = 0,
-    fuel = 100,
-    fuel_consumption = 10
+    weight = None
+    started = None
+    fuel = None
+    fuel_consumption = None
 
 
     def __init__(self,weight,fuel,fuel_consumption):

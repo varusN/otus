@@ -3,8 +3,8 @@
 """
 
 class Plane(Vehicle):
-    cargo = null
-    max_cargo = null
+    cargo = None
+    max_cargo = None
 
 
     def __init__(self,max_cargo):

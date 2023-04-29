@@ -3,7 +3,7 @@
 """
 
 class Car(Vehicle):
-    engine = null
+    engine = None
 
 
     def set_engine(self):
