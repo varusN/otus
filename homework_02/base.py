@@ -14,10 +14,10 @@ class Vehicle(ABC):
         if started != 1:
             try:
                 fuel > 0
-            else:
-                started = 1
             except LowFuelError:
                 pass
+            else:
+                self.started = 1
 
 
     def move(self,dist):
