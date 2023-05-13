@@ -4,7 +4,9 @@
 from homework_02.base import Vehicle
 
 class Car(Vehicle):
-    engine = None
+
+    def __init__(self,engine):
+        self.engine = None
 
 
     def set_engine(self):
