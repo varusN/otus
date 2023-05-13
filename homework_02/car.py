@@ -6,8 +6,8 @@ from homework_02.base import Vehicle
 class Car(Vehicle):
 
     def __init__(self,engine):
-        self.engine = None
+        self.engine = engine
 
 
-    def set_engine(self):
-        Car = self.Engine
+    def set_engine(self,Engine):
+        self.Car = Engine

@@ -6,9 +6,9 @@ from homework_02.base import Vehicle
 
 class Plane(Vehicle):
 
-    def __init__(self,max_cargo):
-        self.cargo = None
-        self.max_cargo = None
+    def __init__(self,max_cargo,cargo):
+        super().__init__(max_cargo)
+        self.cargo = cargo
 
 
     def load_cargo(self):
