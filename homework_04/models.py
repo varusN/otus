@@ -31,7 +31,7 @@ class User(Base):
     username = Column(String)
     email = Column(String)
 
-    post = relationship(
+    posts = relationship(
         "Post",
         back_populates="user",
         uselist=True,
@@ -53,6 +53,6 @@ class Post(Base):
 
     user = relationship(
         "User",
-        back_populates="post",
+        back_populates="posts",
         uselist=True,
     )
