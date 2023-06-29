@@ -18,35 +18,17 @@ import asyncio
 
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 
-from sqlalchemy.orm import (
-    scoped_session,
-    sessionmaker,
-)
-
-from sqlalchemy import create_engine
-
 import jsonplaceholder_requests as js
 import config
 
-from models import Base, User, Post
+from models import Base, User, Post, Session
 
 PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or config.DB_ASYNC_CONN
-
-engine = create_engine(
-    url=config.DB_CONN,
-    echo=config.DB_ECHO,
-)
 
 async_engine = create_async_engine(
     url=PG_CONN_URI,
     echo=config.DB_ECHO,
 )
-
-
-Session = scoped_session(sessionmaker(
-    bind=engine,
-    expire_on_commit=False,
-))
 
 
 def create_user(session: Session, id: int, name: str, username: str, email: str) -> User:

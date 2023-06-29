@@ -11,7 +11,8 @@ def power_numbers(*data):
     >>> power_numbers(1, 2, 5, 7)
     <<< [1, 4, 25, 49]
     """
-    return [ el**2 for el in data ]
+    return [el**2 for el in data]
+
 
 # filter types
 ODD = "odd"
@@ -39,26 +40,24 @@ def filter_numbers(data, filter_type):
     >>> filter_numbers([2, 3, 4, 5], EVEN)
     <<< [2, 4]
     """
+
     def func_odd(num):
-        if(num % 2 != 0):
+        if num % 2 != 0:
             return True
         else:
             return False
-
 
     def func_even(num):
-        if (num % 2 == 0):
+        if num % 2 == 0:
             return True
         else:
             return False
 
-
-    new_data=[]
+    new_data = []
     if filter_type == ODD:
-        new_data = filter(func_odd,data)
+        new_data = filter(func_odd, data)
     if filter_type == EVEN:
         new_data = filter(func_even, data)
     if filter_type == PRIME:
         new_data = filter(is_prime, data)
     return list(new_data)
-

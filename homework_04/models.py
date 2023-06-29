@@ -8,6 +8,8 @@
 создайте связи relationship между моделями: User.posts и Post.user
 """
 
+from sqlalchemy import create_engine
+
 from sqlalchemy import (
     Column,
     Integer,
@@ -19,9 +21,23 @@ from sqlalchemy import (
 from sqlalchemy.orm import (
     declarative_base,
     relationship,
+    scoped_session,
+    sessionmaker,
+)
+
+import config
+
+engine = create_engine(
+    url=config.DB_CONN,
+    echo=config.DB_ECHO,
 )
 
 Base = declarative_base()
+
+Session = scoped_session(sessionmaker(
+    bind=engine,
+    expire_on_commit=False,
+))
 
 
 class User(Base):
