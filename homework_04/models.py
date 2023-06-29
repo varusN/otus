@@ -76,7 +76,7 @@ class Post(Base):
         Integer,
         ForeignKey("users.id"),
         nullable=False,
-        unique=True,
+        unique=False,
     )
     title = Column(String)
     body = Column(Text)
@@ -84,5 +84,5 @@ class Post(Base):
     user = relationship(
         "User",
         back_populates="posts",
-        uselist=True,
+        uselist=False,
     )
