@@ -13,4 +13,10 @@ async def get_data(url: str):
             dict = await response.json()
             return dict
 
+async def get_users_data():
+    result = await get_data(USERS_DATA_URL)
+    return result
 
+async def get_posts_data():
+    result = await get_data(POSTS_DATA_URL)
+    return result

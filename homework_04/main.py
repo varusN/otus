@@ -13,25 +13,14 @@
 - закрытие соединения с БД
 """
 
-import os
 import asyncio
 
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-
 import jsonplaceholder_requests as js
-import config
 
-from models import Base, User, Post, Session
-
-PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or config.DB_ASYNC_CONN
-
-async_engine = create_async_engine(
-    url=PG_CONN_URI,
-    echo=config.DB_ECHO,
-)
+from models import Base, User, Post, Session, async_engine
 
 
-def create_user(session: Session, id: int, name: str, username: str, email: str) -> User:
+async def create_user(session: Session, id: int, name: str, username: str, email: str) -> User:
     user = User(
         id=id,
         name=name,
@@ -39,11 +28,11 @@ def create_user(session: Session, id: int, name: str, username: str, email: str)
         email=email,
     )
     session.add(user)
-    session.commit()
+    await session.commit()
     return user
 
 
-def create_post(session: Session, id: int, user_id: int, title: str, body: str) -> Post:
+async def create_post(session: Session, id: int, user_id: int, title: str, body: str) -> Post:
     post = Post(
         id=id,
         user_id=user_id,
@@ -51,12 +40,12 @@ def create_post(session: Session, id: int, user_id: int, title: str, body: str) 
         body=body,
     )
     session.add(post)
-    session.commit()
+    await session.commit()
 
 
-def upload_users(list):
+async def upload_users(list):
     for user in list:
-        create_user(
+        await create_user(
             Session,
             id=user["id"],
             name=user["name"],
@@ -65,9 +54,9 @@ def upload_users(list):
         )
 
 
-def upload_posts(list):
+async def upload_posts(list):
     for post in list:
-        create_post(
+        await create_post(
             Session,
             id=post["id"],
             user_id=post["userId"],
@@ -81,18 +70,14 @@ async def async_main():
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
     users_data, posts_data = await asyncio.gather(
-        js.get_data(config.USERS_DATA_URL),
-        js.get_data(config.POSTS_DATA_URL),
+        js.get_users_data(),
+        js.get_posts_data(),
     )
-    return users_data, posts_data
-
-
-def main():
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    users_data, posts_data = asyncio.run(async_main())
-    upload_users(users_data)
-    upload_posts(posts_data)
+    await upload_users(users_data)
+    await upload_posts(posts_data)
+#    return users_data, posts_data
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    asyncio.run(async_main())

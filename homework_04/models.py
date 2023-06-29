@@ -8,7 +8,7 @@
 создайте связи relationship между моделями: User.posts и Post.user
 """
 
-from sqlalchemy import create_engine
+import os
 
 from sqlalchemy import (
     Column,
@@ -25,19 +25,26 @@ from sqlalchemy.orm import (
     sessionmaker,
 )
 
-import config
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 
-engine = create_engine(
-    url=config.DB_CONN,
-    echo=config.DB_ECHO,
+
+PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+asyncpg://username:passwd@localhost/blog"
+DB_ECHO = False
+
+async_engine = create_async_engine(
+    url=PG_CONN_URI,
+    echo=DB_ECHO,
 )
 
 Base = declarative_base()
 
-Session = scoped_session(sessionmaker(
-    bind=engine,
-    expire_on_commit=False,
-))
+Session = scoped_session(
+    sessionmaker(
+        bind=async_engine,
+        expire_on_commit=False,
+        class_=AsyncSession,
+    )
+)
 
 
 class User(Base):
