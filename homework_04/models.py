@@ -9,6 +9,7 @@
 """
 
 import os
+from asyncio import current_task
 
 from sqlalchemy import (
     Column,
@@ -21,14 +22,20 @@ from sqlalchemy import (
 from sqlalchemy.orm import (
     declarative_base,
     relationship,
-    scoped_session,
     sessionmaker,
 )
 
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.ext.asyncio import (
+    create_async_engine,
+    AsyncSession,
+    async_scoped_session,
+)
 
 
-PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+asyncpg://username:passwd@localhost/blog"
+PG_CONN_URI = (
+    os.environ.get("SQLALCHEMY_PG_CONN_URI")
+    or "postgresql+asyncpg://username:passwd@localhost/blog"
+)
 DB_ECHO = False
 
 async_engine = create_async_engine(
@@ -38,12 +45,13 @@ async_engine = create_async_engine(
 
 Base = declarative_base()
 
-Session = scoped_session(
+Session = async_scoped_session(
     sessionmaker(
         bind=async_engine,
         expire_on_commit=False,
         class_=AsyncSession,
-    )
+    ),
+    scopefunc=current_task,
 )
 
 
