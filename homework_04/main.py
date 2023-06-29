@@ -20,7 +20,13 @@ import jsonplaceholder_requests as js
 from models import Base, User, Post, Session, async_engine
 
 
-async def create_user(session: Session, id: int, name: str, username: str, email: str) -> User:
+async def create_user(
+    session: Session,
+    id: int,
+    name: str,
+    username: str,
+    email: str,
+) -> User:
     user = User(
         id=id,
         name=name,
@@ -32,7 +38,13 @@ async def create_user(session: Session, id: int, name: str, username: str, email
     return user
 
 
-async def create_post(session: Session, id: int, user_id: int, title: str, body: str) -> Post:
+async def create_post(
+    session: Session,
+    id: int,
+    user_id: int,
+    title: str,
+    body: str,
+) -> Post:
     post = Post(
         id=id,
         user_id=user_id,
@@ -75,6 +87,8 @@ async def async_main():
     )
     await upload_users(users_data)
     await upload_posts(posts_data)
+
+
 #    return users_data, posts_data
 
 
