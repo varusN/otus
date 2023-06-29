@@ -76,9 +76,7 @@ class Post(Base):
         Integer,
         ForeignKey("users.id"),
         nullable=False,
-        unique=False,
     )
-
     title = Column(String)
     body = Column(Text)
 
